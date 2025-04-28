@@ -36,7 +36,7 @@ Revisar la sección de examples
   - `kubectl apply -f <manifest>.yaml`
   - `kubectl delete -f <manifest>.yaml`
 
-- Preguntas para profundizar
+- Preguntas para profundizar:
     - Qué es el Cluster API? Cómo interactúa kubectl? ([Kubernetes Cluster API](https://cluster-api.sigs.k8s.io/))
     - Qué objetos existen el cluste recién creado? 
 
@@ -49,7 +49,7 @@ Revisar la sección de examples
 
 - **Antes de empezar: ¿Qué es un manifest?** ([Kubernetes Objects](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/))
 - **Desplegar creando los recursos a mano para entender lo que tenemos que hacer**
-    Vamos a necesitar un Deployment y un Service. 
+Vamos a necesitar un Deployment y un Service. 
 - **Probar pegarle a la aplicación utilizando port-forward**
 
 ```bash 
@@ -58,7 +58,7 @@ kubectl port-forward deployment/app1 8080:80
 curl http://localhost:8080/whoami  
 ```
 
-- Preguntas para profundizar
+- Preguntas para profundizar:
     - Por qué necesitamos un Deployment y no desplegamos un pod directamente?
     - Cómo funciona un Service? 
     - Para qué sirve el kube-proxy?
@@ -81,7 +81,7 @@ curl http://localhost:8080/whoami
 
 - **Probar la aplicación en su endpoint público**
 
-- Preguntas para profundizar?
+- Preguntas para profundizar:
     - Qué tipos de Service existen? 
     - Qué es un Ingress? Qué diferencia tiene de un Service Load Balancer? Y en particular con el [AWS Load Balancer Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/)?
     - Qué es un Ingress Controller?
