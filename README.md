@@ -11,7 +11,7 @@ Este taller combina teoría y práctica para entender y trabajar con Kubernetes 
 5. [Asignar permisos a la aplicación](#5-asignar-permisos-a-la-aplicación)
 6. [Desplegar segunda aplicación y probar network policies](#6-desplegar-segunda-aplicación-y-probar-network-policies)
 7. [Prueba de Gatekeeper](#7-prueba-de-gatekeeper)
-8. [Borrar todo](#-Borrar-todo)
+8. [Borrar Todo](#8-Borrar-Todo)
 ---
 
 ## 1. Desplegar cluster de Kubernetes con Terraform
