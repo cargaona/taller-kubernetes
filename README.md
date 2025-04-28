@@ -37,13 +37,13 @@ Revisar la sección de examples
   - `kubectl delete -f <manifest>.yaml`
 
 - Preguntas para profundizar
-    - ** Qué es el Cluster API? Cómo interactúa kubectl?** ([Kubernetes Cluster API](https://cluster-api.sigs.k8s.io/))
+    - Qué es el Cluster API? Cómo interactúa kubectl? ([Kubernetes Cluster API](https://cluster-api.sigs.k8s.io/))
     - Qué objetos existen el cluste recién creado? 
 
 ---
 ## 2. Dockerizar la aplicación
 
-- ** Dockerizar la aplicación y subirla a un registry. Pueden usar Dockerhub o ECR en la misma cuenta de AWS. 
+- Dockerizar la aplicación y subirla a un registry. Pueden usar Dockerhub o ECR en la misma cuenta de AWS. 
 
 ## 3. Desplegar la APP 1
 
