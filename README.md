@@ -59,25 +59,9 @@ Herramientas populares: Terraform, Pulumi, AWS CloudFormation.
 
 - **Necesitamos un Deployment y un Service**
 
-apiVersion: apps/v1  
-kind: Deployment  
-metadata:  
-  name: example-app  
-spec:  
-  replicas: 1  
-  selector:  
-    matchLabels:  
-      app: example  
-  template:  
-    metadata:  
-      labels:  
-        app: example  
-    spec:  
-      containers:  
-      - name: example  
-        image: nginx  
-        ports:  
-        - containerPort: 80  
+    - Por qué necesitamos un deployment y no desplegamos un pod directamente?
+    - Cómo funciona un Service? 
+
 
 ---
 
