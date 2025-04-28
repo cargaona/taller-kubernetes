@@ -50,16 +50,18 @@ Herramientas populares: Terraform, Pulumi, AWS CloudFormation.
   - `kubectl` se comunica con el API Server, que actúa como front-end del clúster.
 
 ---
+## 3. Dockerizar la aplicación
 
-## 3. Desplegar la Tool X
+- ** Dockerizar la aplicación y subirla a un registry. (Dockerhub u otro)
+
+## 4. Desplegar la APP 1
 
 - **Antes de empezar: ¿Qué es un manifest?** ([Kubernetes Objects](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/))
 
 - **Desplegar creando los recursos a mano para entender lo que tenemos que hacer**
+    Vamos a necesitar un Deployment y un Service. 
 
-- **Necesitamos un Deployment y un Service**
-
-    - Por qué necesitamos un deployment y no desplegamos un pod directamente?
+    - Por qué necesitamos un Deployment y no desplegamos un pod directamente?
     - Cómo funciona un Service? 
 
 
@@ -67,8 +69,11 @@ Herramientas populares: Terraform, Pulumi, AWS CloudFormation.
 
 - **Probar pegarle a la aplicación utilizando port-forward**
 
-kubectl port-forward deployment/example-app 8080:80  
+```bash 
+
+kubectl port-forward deployment/app1 8080:80  
 curl http://localhost:8080  
+```
 
 ---
 
