@@ -5,12 +5,13 @@ Este taller combina teoría y práctica para entender y trabajar con Kubernetes 
 ## Índice
 
 1. [Desplegar cluster de Kubernetes con Terraform](#2-desplegar-cluster-de-kubernetes-con-terraform)
-2. [Desplegar la Tool A](#3-desplegar-la-tool-A)
-3. [Exponer la aplicación públicamente](#4-exponer-la-aplicación-públicamente)
-4. [Asignar permisos a la aplicación](#5-asignar-permisos-a-la-aplicación)
-5. [Desplegar segunda aplicación y probar network policies](#6-desplegar-segunda-aplicación-y-probar-network-policies)
-6. [Prueba de Gatekeeper](#7-prueba-de-gatekeeper)
-7. [Borrar todo](#-Borrar-todo)
+2. [Dockerizar la aplicación](#2-dockerizar-la-aplicación)
+3. [Desplegar Aplicación Ejemplo](#3-desplegar-la-tool-A)
+4. [Exponer la aplicación públicamente](#4-exponer-la-aplicación-públicamente)
+5. [Asignar permisos a la aplicación](#5-asignar-permisos-a-la-aplicación)
+6. [Desplegar segunda aplicación y probar network policies](#6-desplegar-segunda-aplicación-y-probar-network-policies)
+7. [Prueba de Gatekeeper](#7-prueba-de-gatekeeper)
+8. [Borrar todo](#-Borrar-todo)
 ---
 
 ## 1. Desplegar cluster de Kubernetes con Terraform
@@ -41,12 +42,12 @@ Revisar la sección de examples
     - Qué objetos existen el cluste recién creado? 
 
 ---
-## 2. Dockerizar la aplicación
+## 2. Dockerizar la Aplicación de Ejemplo. 
 
 - Dockerizar la aplicación y subirla a un registry. Pueden usar Dockerhub o ECR en la misma cuenta de AWS. 
 
 --- 
-## 3. Desplegar la APP 1
+## 3. Desplegar la Aplicación de Ejemplo.  
 
 - Antes de empezar: ¿Qué es un manifest? ([Kubernetes Objects](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/))
 - Desplegar creando los recursos a mano para entender lo que tenemos que hacer
@@ -69,7 +70,7 @@ curl http://localhost:8080/whoami
 
 ## 4. Exponer la aplicación públicamente
 
-- Utilizar un Service Load Balancer y exponer la app
+- Utilizar un Service Load Balancer y exponer la app. [Ejemplo](https://docs.aws.amazon.com/eks/latest/userguide/auto-configure-nlb.html#_sample_service)
 - Asignar un dominio y SSL usando Route53 y ACM
   - Crear un certificado en ACM.
   - Si tienen dominio propio pueden usarlo. Si no, pueden pedirme y les doy un subdominio propio. 
@@ -146,4 +147,6 @@ curl http://localhost:8080/whoami
   - Auditar el estado actual del clúster frente a las políticas instaladas.
 
 ---
+## 8. Borrar Todo 
 
+terraform destroy, y lo que esté manual, también. 
