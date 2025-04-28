@@ -10,6 +10,7 @@ Este taller combina teoría y práctica para entender y trabajar con Kubernetes 
 4. [Asignar permisos a la aplicación](#5-asignar-permisos-a-la-aplicación)
 5. [Desplegar segunda aplicación y probar network policies](#6-desplegar-segunda-aplicación-y-probar-network-policies)
 6. [Prueba de Gatekeeper](#7-prueba-de-gatekeeper)
+7. [Borrar todo](#-Borrar-todo)
 ---
 
 ## 1. Desplegar cluster de Kubernetes con Terraform
@@ -20,6 +21,7 @@ Este taller combina teoría y práctica para entender y trabajar con Kubernetes 
   - `terraform apply`
   
 - **Utilizar módulo de AWS terraform EKS** ([AWS EKS Terraform module](https://registry.terraform.io/modules/terraform-aws-modules/eks/aws/latest))
+Revisar la sección de examples
 
 - **Definir VPC con configuración recomendada** ([AWS VPC Best Practices](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Scenarios.html))
   - Subnets públicas y privadas, IGW, NAT Gateway.
@@ -35,7 +37,8 @@ Este taller combina teoría y práctica para entender y trabajar con Kubernetes 
   - `kubectl delete -f <manifest>.yaml`
 
 - Preguntas para profundizar
-    - **¿Qué es el Cluster API? ¿Cómo interactúa kubectl?** ([Kubernetes Cluster API](https://cluster-api.sigs.k8s.io/))
+    - ** Qué es el Cluster API? Cómo interactúa kubectl?** ([Kubernetes Cluster API](https://cluster-api.sigs.k8s.io/))
+    - Qué objetos existen el cluste recién creado? 
 
 ---
 ## 2. Dockerizar la aplicación
@@ -47,8 +50,6 @@ Este taller combina teoría y práctica para entender y trabajar con Kubernetes 
 - **Antes de empezar: ¿Qué es un manifest?** ([Kubernetes Objects](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/))
 - **Desplegar creando los recursos a mano para entender lo que tenemos que hacer**
     Vamos a necesitar un Deployment y un Service. 
-    - Por qué necesitamos un Deployment y no desplegamos un pod directamente?
-    - Cómo funciona un Service? 
 - **Probar pegarle a la aplicación utilizando port-forward**
 
 ```bash 
@@ -56,6 +57,12 @@ Este taller combina teoría y práctica para entender y trabajar con Kubernetes 
 kubectl port-forward deployment/app1 8080:80  
 curl http://localhost:8080/whoami  
 ```
+
+- Preguntas para profundizar
+    - Por qué necesitamos un Deployment y no desplegamos un pod directamente?
+    - Cómo funciona un Service? 
+    - Para qué sirve el kube-proxy?
+
 
 ---
 
