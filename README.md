@@ -4,27 +4,15 @@ Este taller combina teoría y práctica para entender y trabajar con Kubernetes 
 
 ## Índice
 
-1. [Introducción a Infrastructure as Code (IaC)](#1-introducción-a-infrastructure-as-code-iac)
-2. [Desplegar cluster de Kubernetes con Terraform](#2-desplegar-cluster-de-kubernetes-con-terraform)
-3. [Desplegar la Tool A](#3-desplegar-la-tool-A)
-4. [Exponer la aplicación públicamente](#4-exponer-la-aplicación-públicamente)
-5. [Asignar permisos a la aplicación](#5-asignar-permisos-a-la-aplicación)
-6. [Desplegar segunda aplicación y probar network policies](#6-desplegar-segunda-aplicación-y-probar-network-policies)
-7. [Prueba de Gatekeeper](#7-prueba-de-gatekeeper)
-
+1. [Desplegar cluster de Kubernetes con Terraform](#2-desplegar-cluster-de-kubernetes-con-terraform)
+2. [Desplegar la Tool A](#3-desplegar-la-tool-A)
+3. [Exponer la aplicación públicamente](#4-exponer-la-aplicación-públicamente)
+4. [Asignar permisos a la aplicación](#5-asignar-permisos-a-la-aplicación)
+5. [Desplegar segunda aplicación y probar network policies](#6-desplegar-segunda-aplicación-y-probar-network-policies)
+6. [Prueba de Gatekeeper](#7-prueba-de-gatekeeper)
 ---
 
-## 1. Introducción a Infrastructure as Code (IaC)
-
-**¿Qué es IaC?**  
-Es el proceso de gestionar y aprovisionar infraestructura mediante archivos de configuración legibles por máquina, en lugar de procesos manuales.  
-Más información: [What is Infrastructure as Code?](https://learn.microsoft.com/en-us/devops/deliver/what-is-infrastructure-as-code)
-
-Herramientas populares: Terraform, Pulumi, AWS CloudFormation.
-
----
-
-## 2. Desplegar cluster de Kubernetes con Terraform
+## 1. Desplegar cluster de Kubernetes con Terraform
 
 - **Comandos básicos de terraform** ([Terraform CLI documentation](https://developer.hashicorp.com/terraform/cli))
   - `terraform init`
@@ -46,33 +34,27 @@ Herramientas populares: Terraform, Pulumi, AWS CloudFormation.
   - `kubectl apply -f <manifest>.yaml`
   - `kubectl delete -f <manifest>.yaml`
 
-- **¿Qué es el Cluster API? ¿Cómo interactúa kubectl?** ([Kubernetes Cluster API](https://cluster-api.sigs.k8s.io/))
-  - `kubectl` se comunica con el API Server, que actúa como front-end del clúster.
+- Preguntas para profundizar
+    - **¿Qué es el Cluster API? ¿Cómo interactúa kubectl?** ([Kubernetes Cluster API](https://cluster-api.sigs.k8s.io/))
 
 ---
-## 3. Dockerizar la aplicación
+## 2. Dockerizar la aplicación
 
-- ** Dockerizar la aplicación y subirla a un registry. (Dockerhub u otro)
+- ** Dockerizar la aplicación y subirla a un registry. Pueden usar Dockerhub o ECR en la misma cuenta de AWS. 
 
-## 4. Desplegar la APP 1
+## 3. Desplegar la APP 1
 
 - **Antes de empezar: ¿Qué es un manifest?** ([Kubernetes Objects](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/))
-
 - **Desplegar creando los recursos a mano para entender lo que tenemos que hacer**
     Vamos a necesitar un Deployment y un Service. 
-
     - Por qué necesitamos un Deployment y no desplegamos un pod directamente?
     - Cómo funciona un Service? 
-
-
----
-
 - **Probar pegarle a la aplicación utilizando port-forward**
 
 ```bash 
 
 kubectl port-forward deployment/app1 8080:80  
-curl http://localhost:8080  
+curl http://localhost:8080/whoami  
 ```
 
 ---
@@ -80,25 +62,9 @@ curl http://localhost:8080
 ## 4. Exponer la aplicación públicamente
 
 - **Utilizar un Service Load Balancer y exponer la app**
-
-apiVersion: v1  
-kind: Service  
-metadata:  
-  name: example-lb  
-spec:  
-  type: LoadBalancer  
-  ports:  
-    - port: 80  
-      targetPort: 80  
-  selector:  
-    app: example  
-
----
-
 - **Asignar un dominio y SSL usando Route53 y ACM**
-  - Crear un record en Route53 apuntando al Load Balancer.
   - Crear un certificado en ACM.
-  - (Opcional) Usar [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) y [cert-manager](https://cert-manager.io/).
+  - Si tienen dominio propio pueden usarlo. Si no, pueden pedirme y les doy un subdominio propio. 
 
 - **Entender la diferencia entre Service Load Balancer y Ingress + Ingress Controller**
   - *Service LoadBalancer*: un Load Balancer dedicado por aplicación.
@@ -106,7 +72,13 @@ spec:
     [Ingress Controllers Documentation](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/)  
     [AWS ALB Ingress Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/)
 
-- **Probar la aplicación en su primer endpoint público**
+- **Probar la aplicación en su endpoint público**
+
+- Preguntas para profundizar?
+    - Qué tipos de Service existen? 
+    - Qué es un Ingress? Qué diferencia tiene de un Service Load Balancer? Y en particular con el [AWS Load Balancer Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/)?
+    - Qué es un Ingress Controller?
+
 
 ---
 
@@ -114,18 +86,23 @@ spec:
 
 - **Utilizar RoleBindings para permitirle a nuestra aplicación hacer uso de la API de Kubernetes**
   - Crear un Role + RoleBinding con permisos de lectura sobre pods.
-  - Desde la aplicación probar un endpoint que liste los pods.
+  - Desde la aplicación probar el endpoint que liste los pods. `GET /pods`  
 
-- **Utilizar IRSA o Pod Identity para permitirle a la aplicación hacer uso de un bucket S3**
+- **Utilizar [IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) o [Pod Identity](https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html) para permitirle a la aplicación hacer uso de un bucket S3**
   - Crear un IAM Role asociado al ServiceAccount.
-  - Probar endpoint que lista los archivos dentro de un bucket.
+  - Probar endpoint que lista los archivos dentro de un bucket. `GET /s3-objects`
+  - Para completar esta tarea, van a tener que crear un bucket y cargarle algunos archivos. 
+
+- Preguntas para profundizar:
+    - Qué diferencias existen entre Pod Identity e IRSA?
+    - Qué es y para qué sirve un Service Account?  
 
 ---
 
 ## 6. Desplegar segunda aplicación y probar network policies
 
-- **Desplegar una aplicación/pod en otro namespace**
-
+- **Desplegar una aplicación/pod en otro namespace, [busybox](https://github.com/ipedrazas/k8s-lskp-demo/blob/master/busybox-pod.yaml) es una buena candidata**
+- ** Instalar [Calico](https://docs.tigera.io/calico/latest/getting-started/kubernetes/managed-public-cloud/eks);
 - **Aplicar una NetworkPolicy para limitar el tráfico entre namespaces**
 
 - **Probar acceso entre pods**
@@ -135,6 +112,9 @@ spec:
 - **Modificar la NetworkPolicy para permitir el tráfico**
   - Volver a probar y validar que ahora funciona.
 
+- Preguntas para profundizar:
+    - ** Qué es es un [CNI](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)? Cómo es el [Kubernetes Network Model](https://kubernetes.io/docs/concepts/services-networking/#the-kubernetes-network-model)? 
+    - ** Cómo resuelve DNS internamente Kubernetes? [Docs](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
 ---
 
 ## 7. Prueba de Gatekeeper
