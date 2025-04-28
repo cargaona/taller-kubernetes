@@ -5,8 +5,8 @@ Este taller combina teoría y práctica para entender y trabajar con Kubernetes 
 ## Índice
 
 1. [Desplegar cluster de Kubernetes con Terraform](#2-desplegar-cluster-de-kubernetes-con-terraform)
-2. [Dockerizar la aplicación](#2-dockerizar-la-aplicación)
-3. [Desplegar Aplicación Ejemplo](#3-desplegar-la-tool-A)
+2. [Dockerizar la Aplicación de Ejemplo](#2-dockerizar-la-aplicación-de-ejemplo)
+3. [Desplegar Aplicación Ejemplo](#3-desplegar-la-aplicación-de-ejemplo)
 4. [Exponer la aplicación públicamente](#4-exponer-la-aplicación-públicamente)
 5. [Asignar permisos a la aplicación](#5-asignar-permisos-a-la-aplicación)
 6. [Desplegar segunda aplicación y probar network policies](#6-desplegar-segunda-aplicación-y-probar-network-policies)
